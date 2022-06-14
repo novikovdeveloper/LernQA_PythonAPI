@@ -2,7 +2,10 @@ from LernQA_PythonAPI.lib.base_case import BaseCase
 from LernQA_PythonAPI.lib.assertions import Assertions
 from LernQA_PythonAPI.lib.my_requests import MyRequests
 import pytest
+import allure
 
+
+@allure.epic('Autorization cases')
 class TestUserAuth(BaseCase):
     exclude_params = [
         ("no_cookie"),
@@ -25,6 +28,7 @@ class TestUserAuth(BaseCase):
 
         self.user_id_from_auth_method = response1.json()["user_id"]
 
+    @allure.description("This is successfully user by email and password")
     def test_auth_user(self):
 
         response2 = MyRequests.get(
@@ -40,6 +44,7 @@ class TestUserAuth(BaseCase):
             "User id from auth method is not equal to user id from check method"
         )
 
+    @allure.description("This test checks autorization status w/o sending auth cookie or token")
     @pytest.mark.parametrize('condition', exclude_params)
     def test_negative_auth_check(self, condition):
 

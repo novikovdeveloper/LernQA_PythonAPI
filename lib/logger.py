@@ -2,6 +2,7 @@ import datetime
 import os
 from requests import Response
 
+
 class Logger:
     file_name = f"logs/log_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))+".log"
 
@@ -11,7 +12,7 @@ class Logger:
             logger_file.write(data)
 
     @classmethod
-    def add_request(cls, url: str, data: dict, headers: dict, cookies: dict, method:str):
+    def add_request(cls, url: str, data: dict, headers: dict, cookies: dict, method: str):
         testname = os.environ.get('PYTEST_CURRENT_TEST')
 
         data_to_add = f"\n-----\n"
