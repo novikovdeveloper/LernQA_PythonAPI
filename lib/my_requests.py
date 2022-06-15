@@ -1,7 +1,7 @@
 import requests
 from LernQA_PythonAPI.lib.logger import Logger
 import allure
-from environment import ENV_OBJECT
+from LernQA_PythonAPI.environment import ENV_OBJECT
 
 
 class MyRequests():
@@ -36,7 +36,7 @@ class MyRequests():
         if cookies is None:
             cookies = {}
 
-        Logger.add_requests(url, data, headers, cookies, method)
+        Logger.add_request(url, data, headers, cookies, method)
 
         if method == 'GET':
             response = requests.get(url, params=data, headers=headers, cookies=cookies)
