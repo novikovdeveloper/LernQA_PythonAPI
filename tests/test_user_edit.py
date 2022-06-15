@@ -1,6 +1,8 @@
 from LernQA_PythonAPI.lib.my_requests import MyRequests
 from LernQA_PythonAPI.lib.base_case import BaseCase
 from LernQA_PythonAPI.lib.assertions import Assertions
+import allure
+from LernQA_PythonAPI.lib.allure_description import AllureDescription
 
 
 class TestUserEdit(BaseCase):
@@ -71,8 +73,9 @@ class TestUserEdit(BaseCase):
         Assertions.assert_json_has_not_key(response, "firstName")
         Assertions.assert_json_has_not_key(response, "lastName")
 
-    #- Попытаемся изменить данные пользователя, будучи авторизованными другим пользователем
+    @allure.description("Попытаемся изменить данные пользователя, будучи авторизованными другим пользователем")
     def test_edit_user_another_user(self):
+        AllureDescription.add_step("Авторизация пользователя")
         #Auth
         data = {
             'email': 'vinkotov@example.com',
@@ -84,6 +87,7 @@ class TestUserEdit(BaseCase):
         token = self.get_header(response1, "x-csrf-token")
         user_id_from_auth_method = self.get_json_value(response1, "user_id")
 
+        AllureDescription.add_step("редактирование пользователя")
         # EDIT
         new_name = "Changed Name"
 
